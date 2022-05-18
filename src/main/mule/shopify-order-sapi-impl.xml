@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:shopify="http://www.mulesoft.org/schema/mule/shopify" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/shopify http://www.mulesoft.org/schema/mule/shopify/current/mule-shopify.xsd">
+	<sub-flow name="create-shopify-order" doc:id="8cf38ea6-c1cb-400e-ae04-c6b2656bbe5a" >
+		<ee:transform doc:name="Map Order" doc:id="8caf8ea8-b56b-4eb4-b853-dd246f2d797b">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	order: {
+		billing_address: {
+			address1: payload.billingAddress.address1,
+			address2: payload.billingAddress.address2 default "",
+			city: payload.billingAddress.city,
+			country: payload.billingAddress.country default "",
+			first_name: payload.billingAddress.firstName,
+			last_name: payload.billingAddress.lastName,
+			phone: payload.billingAddress.phone default "",
+			province: payload.billingAddress.state,
+			zip: payload.billingAddress.zip
+		},
+		customer: {
+			email: payload.customer.email,
+			first_name: payload.customer.firstName,
+			last_name: payload.customer.lastName,
+			phone: payload.customer.phone
+		},
+		email: payload.email,
+		line_items: payload.lineItems map ( lineItem , indexOfLineItem ) -> {
+			price: lineItem.price as String,
+			quantity: lineItem.quantity,
+			sku: lineItem.sku default "",
+			title: lineItem.title
+		},
+		phone: payload.phone,
+		shipping_address: {
+			address1: payload.shippingAddress.address1,
+			address2: payload.shippingAddress.address2 default "",
+			city: payload.shippingAddress.city,
+			country: payload.shippingAddress.country,
+			first_name: payload.shippingAddress.firstName,
+			last_name: payload.shippingAddress.lastName,
+			phone: payload.shippingAddress.phone default "",
+			province: payload.shippingAddress.state,
+			zip: payload.shippingAddress.zip
+		}
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Log Request" doc:id="e4b5fe52-8837-4698-957c-671a5897905d" message="Payload: #[payload]" />
+		<http:request method="POST" doc:name="Create Order" doc:id="46bd50a4-186a-4123-906f-47a3a2faae4e" config-ref="Shopify_Request_configuration" path="/admin/api/${shopify.admin_api.version}/orders.json" outputMimeType="application/json" responseTimeout="${shopify.response_timeout}">
+			<http:headers><![CDATA[#[output application/java
+---
+{
+	"X-Shopify-Access-Token" : p("shopify.admin_api.access_token")
+}]]]></http:headers>
+		</http:request>
+		<logger level="INFO" doc:name="Log Shopify Response" doc:id="9a3f8db3-9b73-41ea-a86a-f858a589e007" message="#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;	Message: payload&#10;}]" />
+		<ee:transform doc:name="Map API Response" doc:id="99ab87bf-170f-43ac-9729-f1ead8613ea1">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	responseStatus: "SUCCESS",
+	resultMessages: [
+		{
+			severity: "INFO",
+			message: "Order id: " ++ payload.order.app_id as String
+		},{
+			severity: "INFO",
+			message: "Order #: " ++ payload.order.order_number as String
+		}
+	]
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>
