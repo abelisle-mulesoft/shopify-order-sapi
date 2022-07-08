@@ -12,5 +12,4 @@ http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/
 	<http:request-config name="Shopify_Request_configuration" doc:name="HTTP Request configuration" doc:id="d955633c-01fd-4e72-a3fc-f3da75f018da" enableCookies="false" responseTimeout="${shopify.response_timeout}" sendCorrelationId="NEVER">
 		<http:request-connection protocol="HTTPS" host="${shopify.https.host}" port="${shopify.https.port}" usePersistentConnections="false"/>
 	</http:request-config>
-	<api-gateway:autodiscovery apiId="${api.id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="5138e6e6-0cf2-4430-8467-8931d01cdf6b" flowRef="post:\order:application\json:shopify-order-sapi-config" />
 </mule>
