@@ -1,0 +1,37 @@
+#%RAML 1.0 Library
+usage:
+  Provides reusable data types to define addresses in APIs as per the standardized format.
+
+types:
+  Address:
+    type: object
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      company:
+        type: string
+        required: false
+      address1:
+        type: string
+      address2:
+        type: string
+        required: false
+      city:
+        type: string
+      state:
+        type: string
+      country:
+        type: string
+      zip:
+        type: string
+      phone:
+        type: string
+        required: false
+
+  BillingAddress:
+    type: Address
+
+  ShippingAddress:
+    type: Address

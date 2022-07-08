@@ -1,0 +1,22 @@
+#%RAML 1.0 Library
+usage:
+  Provides reusable data types to define products in APIs as per the standardized format.
+
+types:
+  Product:
+    type: object
+    properties:
+      id:
+        type: string
+        required: false
+      title:
+        type: string
+      type:
+        type: string
+        required: false
+      price:
+        type: number
+        format: float
+      sku:
+        type: string
+        required: false

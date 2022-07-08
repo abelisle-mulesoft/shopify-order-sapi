@@ -1,0 +1,22 @@
+#%RAML 1.0
+title: Shopify Order System API (sAPI)
+description: System API for working with orders in Shopify.
+version: v1
+mediaType: application/json
+
+uses:
+  OrderLibrary: ./modules/shopify-order-sapi-library.raml
+  GlobalResources: ./modules/global-resources.raml
+
+/order:
+  description: Resource representing a Shopify order in standardized format.
+  post:
+    description: Creates a new order in Shopify.
+    body:
+      application/json:
+        type: OrderLibrary.ShopifyOrder
+    responses: 
+      201:
+        body: 
+          application/json:
+            type: GlobalResources.BasicResponse

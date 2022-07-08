@@ -1,0 +1,25 @@
+#%RAML 1.0 Library
+usage:
+  Provides reusable data types to define contacts in APIs as per the standardized format.
+
+types:
+  Email:
+    type: string
+
+  Phone:
+    type: string
+
+  Contact:
+    type: object
+    properties:
+      firstName:
+        type: string
+      middleName:
+        type: string
+        required: false
+      lastName:
+        type: string
+      email:
+        type: Email
+      phone:
+        type: Phone

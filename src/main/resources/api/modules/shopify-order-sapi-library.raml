@@ -1,0 +1,33 @@
+#%RAML 1.0 Library
+usage:
+    Defines the Shopify Order data type as per the standardized format.
+
+uses:
+  AddressTypes: ./address-library.raml
+  ContactTypes: ./contact-library.raml
+  ProductTypes: ./product-library.raml
+
+types:
+  LineItem:
+    type: ProductTypes.Product
+    properties:
+      quantity:
+        type: integer
+
+  ShopifyOrder:
+    type: object
+    examples: !include ./shopify-order-sapi-example.raml
+    properties:
+      customer:
+        type: ContactTypes.Contact
+      email: ContactTypes.Email
+      phone: ContactTypes.Phone
+      billingAddress:
+        type: AddressTypes.BillingAddress
+      shippingAddress:
+        type: AddressTypes.ShippingAddress
+      lineItems:
+        type: array
+        items: LineItem
+        minItems: 1
+

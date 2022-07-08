@@ -47,13 +47,6 @@
 			<classifier>mule-plugin</classifier>
 		</dependency>
 		<dependency>
-			<groupId>6dffd476-64a4-40d5-a941-f97fb2a75992</groupId>
-			<artifactId>shopify-order-sapi</artifactId>
-			<version>1.1.0</version>
-			<classifier>raml</classifier>
-			<type>zip</type>
-		</dependency>
-		<dependency>
 			<groupId>org.mule.modules</groupId>
 			<artifactId>mule-apikit-module</artifactId>
 			<version>1.5.11</version>

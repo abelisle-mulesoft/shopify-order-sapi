@@ -1,0 +1,25 @@
+#%RAML 1.0 Library
+usage:
+  Provides a collection of common types for use in API Specifications
+
+types:
+  BasicResponse:
+    description: Represents a basic response structure that can be returned by APIs
+    properties:
+      responseStatus: ResponseStatus
+      resultMessages?: ResultMessage[]
+
+  ResponseStatus:
+    description: Represents the overall status of the operation
+    enum: [ SUCCESS, WARNING, ERROR ]
+    example: SUCCESS
+
+  ResultMessage:
+    description: Represents a single message to be included in the response
+    type: object
+    properties:
+      severity:
+        description: Indicates the severity of this particular message item
+        enum: [ INFO, WARNING, ERROR ]
+      code?: string
+      message?: string
