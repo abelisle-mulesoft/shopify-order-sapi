@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd ">
-    <apikit:config name="shopify-order-sapi-config" api="resource::6dffd476-64a4-40d5-a941-f97fb2a75992:shopify-order-sapi:1.1.0:raml:zip:shopify-order-sapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="shopify-order-sapi-config" api="shopify-order-sapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="shopify-order-sapi-main">
         <http:listener path="/api/*" config-ref="shopify-order-sapi-httpListenerConfig">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -110,7 +110,7 @@ output application/json
 {
   date_time: now(),
   status: 501,
-  message: "Not implemented error"	
+  message: "Not implemented error"
 }]]></ee:set-payload>
                     </ee:message>
                     <ee:variables>
@@ -166,27 +166,6 @@ output application/json
                 </ee:transform>
             </on-error-propagate>
         </error-handler>
-    </flow>
-    <flow name="get:\ping:shopify-order-sapi-config">
-        <ee:transform>
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{
-  status: "OK",
-  apiName: "shopify-order-sapi",
-  apiVersion: "1.0.0",
-  timestamp: now(),
-  dependencies: [
-    {
-      name: "Shopify",
-      status: "UP"
-    }
-  ]
-}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
     </flow>
     <flow name="post:\order:application\json:shopify-order-sapi-config">
 		<flow-ref doc:name="Flow Reference" doc:id="dd19eabd-ba7d-4ddf-8f81-5a3153da8954" name="create-shopify-order"/>
