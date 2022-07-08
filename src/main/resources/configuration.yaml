@@ -20,6 +20,5 @@ shopify:
     access_token: <Shopify Admin API access token>
 
 api:
-  id: <API ID for autodiscovery>
   response_timeout: "10000"
 
