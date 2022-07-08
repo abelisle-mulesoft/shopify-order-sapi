@@ -15,10 +15,10 @@ We implemented this system API using the following technology stack:
 - Mule Server 4.3.0
 - Shopify REST Admin API version 2022-04
 
-Although not formally tested, you could easily use earlier versions these components.
+Although not formally tested, you could easily use earlier versions of these components.
 
 ## Implementation Overview
-As of this writing, the Shopify Order System API implements a single operation for creating orders in a Shopify store. We limited the current implementation intentionally, as the requirement was to show how to leverage the Shopify REST Admin API in the content of a proof of concept. However, you could easily extend it to create, retrieve, update, and delete orders in a Shopify store.
+As of this writing, the Shopify Order System API implements a single operation for creating a single order in a Shopify store. We limited the current implementation intentionally, as the requirement was to show how to leverage the Shopify REST Admin API in the content of a proof of concept. However, you could easily extend it to create, retrieve, update, and delete orders in a Shopify store.
 
 As it is common practice at MuleSoft, we leverage RAML to specify our API. We also utilized (RAML) API fragments to promote reusability where it made sense. Primarily for convenience and to make sharing the Anypoint Studio project easier, we included the RAML files in the project (`src/main/resources/api`) rather than having a dependency to its published specification in Anypoint Exchange.
 
@@ -42,11 +42,10 @@ We designed and organized the implementation using three Mule flows:
     <br/>
     Optionally, revise or update other properties as you see fit.
 
-<br/>
 3. Compile and run the project in Anypoint Studio as a smoke test. Optionally, test the Shopify Order System API using the API Console in Anypoint Studio, or your preferred API testing tool (e.g., Postman).
 
 ## Sample Request Messages
-We tested and demoed the Shopify Order System API using the following sample request message.
+We tested the Shopify Order System API using the following sample request message.
 ```json
 {
   "customer": {
@@ -86,7 +85,7 @@ We tested and demoed the Shopify Order System API using the following sample req
 }
 ```
 
-> :memo: As implied in the sample request message above, we created basic products for our Shopify (i.e., without variants). Furthermore, we did not include taxes and used the product title when creating orders.
+> :memo: As implied in the sample request message above, we created basic products for our Shopify store (i.e., without variants). Furthermore, we did not include taxes and used the product title when creating orders (instead of a SKU for example).
 
 ## Reporting Issues
 You can report new issues at this link https://github.com/abelisle-mulesoft/shopify-order-sapi/issues.
