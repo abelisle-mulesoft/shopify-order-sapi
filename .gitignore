@@ -69,3 +69,4 @@ buildNumber.properties
 .mule/
 **/.DS_Store
 **/*.jks
+**/*.orig
