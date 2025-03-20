@@ -3,7 +3,7 @@
 http://www.mulesoft.org/schema/mule/shopify http://www.mulesoft.org/schema/mule/shopify/current/mule-shopify.xsd
 http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd
 http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
-	<global-property doc:name="Global Property" doc:id="56e1f037-8e04-464f-a4ec-5233617ded9b" name="env" value="local" />
+	<global-property doc:name="Global Property" doc:id="56e1f037-8e04-464f-a4ec-5233617ded9b" name="env" value="dev" />
 	<configuration-properties doc:name="Configuration properties" doc:id="0313bd69-64bc-4dcc-87d4-69c69ed1b863" file="properties/mule-props-${env}.yaml" />
 <!-- 	<api-gateway:autodiscovery apiId="${autodiscovery.api_id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="28833fdf-39af-4150-ab6e-802696179980" flowRef="${autodiscovery.flow_name}" />  -->
 	<http:listener-config name="shopify-order-sapi-httpListenerConfig" doc:name="shopify-order-sapi-httpListenerConfig">

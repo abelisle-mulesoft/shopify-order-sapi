@@ -14,7 +14,7 @@ uses:
     description: Retrieve a list of orders from Shopify.
     queryParameters:
       status?:
-        description: Optionnal parameter for filtering orders by their status.
+        description: Optional parameter for filtering orders by their status.
         type: string
         enum:
           - any
@@ -40,3 +40,23 @@ uses:
           application/json:
             type: !include modules/api-comprehensive-response.raml
 
+  /{orderId}:
+    displayName: Shopify specific order
+    description: Resource representing a specific Shopify order in standardized format.
+    uriParameters:
+      orderId:
+        type: string
+        description: | 
+          Globally unique identifier of an order. Shopify uses the order ID for API requests and
+          responses. Shopify does not display the order id in its user interfaces. You can get the
+          order ID via an API call (e.g., retrieve list of orders).
+        example: "5294966145243"
+          
+    get:
+      displayName: Retrieve a specific order
+      description: Retrieve the order with the specified orderId from Shopify.
+      responses:
+        200:
+          body:
+            application/json:
+              type: OrderLibrary.ShopifyOrder

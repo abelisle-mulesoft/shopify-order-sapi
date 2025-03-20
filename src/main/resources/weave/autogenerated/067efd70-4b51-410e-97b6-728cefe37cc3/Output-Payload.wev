@@ -1,0 +1,45 @@
+%dw 2.0
+
+type auto_067efd70_4b51_410e_97b6_728cefe37cc3_Output_Payload = {
+  lineItems: Array<{    quantity: Number,     price: Number,     id?: String,     title: String,     "type"?: String,     sku?: String,     _?: Any  }>, 
+  phone: String, 
+  shippingAddress: {
+    zip: String, 
+    firstName: String, 
+    lastName: String, 
+    country: String, 
+    address2?: String, 
+    city: String, 
+    phone?: String, 
+    address1: String, 
+    company?: String, 
+    state: String, 
+    _?: Any
+  } {"description": "Encapsulates all the properties used in a shipping address.",
+  "label": "Shipping Address"}, 
+  billingAddress: {
+    zip: String, 
+    firstName: String, 
+    lastName: String, 
+    country: String, 
+    address2?: String, 
+    city: String, 
+    phone?: String, 
+    address1: String, 
+    company?: String, 
+    state: String, 
+    _?: Any
+  } {"description": "Encapsulates all the properties used in a billing address.",
+  "label": "Billing Address"}, 
+  email: String, 
+  customer: {
+    firstName: String, 
+    lastName: String, 
+    phone: String, 
+    middleName?: String, 
+    email: String, 
+    _?: Any
+  }, 
+  _?: Any
+}
+

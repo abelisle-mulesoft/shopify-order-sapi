@@ -21,7 +21,13 @@ Although not formally tested, you could easily use earlier versions of these com
 > The Shopify's REST Admin API reference stated, "*the REST Admin API is a legacy API as of October 1, 2024. All apps and integrations should be built with the [GraphQL Admin API](https://shopify.dev/docs/api/admin-graphql).*" 
 
 ## Implementation Overview
-In the current revision, the Shopify Order SAPI implements two operations: the first to retrieve all orders from the Shopify store and the second to create a single order in the Shopify store. I intentionally limited the current implementation, as the requirement was to show how to leverage the Shopify REST Admin API in the content of a proof of concept. 
+In the current revision, the Shopify Order SAPI implements the following operations:
+
+- `GET /orders` - Retrieve a list of orders from Shopify.
+- `GET /orders/{orderId}` - Retrieve the order with the specified orderId from Shopify.
+- `POST /orders` - Create a new order in Shopify.
+
+I intentionally limited the current implementation, as the original requirement was limited to showing how to leverage the **Shopify REST Admin API** in the content of a proof of concept. 
 
 As it is common practice at MuleSoft, I leveraged RAML to specify this API. I also utilized (RAML) API fragments to promote reusability where it made sense. Primarily for convenience and to make sharing the Anypoint Studio project easier, I included the RAML files in the project (`src/main/resources/api`) rather than having a dependency to its published specification in Anypoint Exchange.
 
@@ -45,7 +51,6 @@ I designed and organized the implementation using three Mule flows:
    - `shopify.admin_api.version` - the version of the Shopify REST Admin API.
    - `shopify.https.access_token` - your Shopify Store access token.
 
-    <br/>
     Optionally, revise or update other properties as you see fit.
 
 4. Compile and run the project in Anypoint Studio as a smoke test. Optionally, test the Shopify Order SAPI using the API Console in Anypoint Studio, or your preferred API testing tool (e.g., Postman).

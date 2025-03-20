@@ -76,6 +76,77 @@ payload.orders map ( order , indexOfOrder ) -> {
 			</on-error-propagate>
 		</error-handler>
 	</flow>
+	<flow name="get-shopify-order-by-id-flow" doc:id="067efd70-4b51-410e-97b6-728cefe37cc3" >
+		<logger level="TRACE" doc:name="Trace - Flow Starting" doc:id="2398b519-d669-4fa1-9624-610f7f8c70f5" message="Flow starting" />
+		<logger level="TRACE" doc:name="Trace - Retrieving Order By ID" doc:id="a3a4b920-3971-451f-ae2e-fcb2c38b198c" message="Retrieve order with ID = #[attributes.queryParams.status]" />
+		<logger level="INFO" doc:name="Logger" doc:id="548181ad-f610-43e6-9b32-0fbafea0f69b" message="Order ID: #[attributes.uriParams.orderId]"/>
+		<http:request method="GET" doc:name="Retrieve Specific Order" doc:id="be0df565-cfd1-435a-b29a-4fc3f44c154c" config-ref="Shopify_Request_configuration" path="/admin/api/${shopify.admin_api.version}/orders/{orderId}" outputMimeType="application/json">
+			<http:body><![CDATA[#[""]]]></http:body>
+			<http:headers><![CDATA[#[output application/java
+---
+{
+	"X-Shopify-Access-Token" : p("shopify.admin_api.access_token")
+}]]]></http:headers>
+			<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"orderId" : attributes.uriParams.orderId ++ ".json"
+}]]]></http:uri-params>
+		</http:request>
+		<logger level="TRACE" doc:name="Trace - Retrieved Successfully" doc:id="3cc9fe2a-974f-418d-885c-6eb77ea563a3" message="Retrieved order from Shopify successfully" />
+		<ee:transform doc:name="Create API Response" doc:id="2d568cfe-08a3-4ea2-bc47-73b9fced685e">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	lineItems: payload.order.line_items map ( lineitem , indexOfLineitem ) -> {
+		quantity: lineitem.quantity,
+		price: lineitem.price as Number,
+		id: lineitem.id as String,
+		title: lineitem.title,
+		sku: lineitem.sku
+	},
+	phone: payload.order.phone,
+	shippingAddress: {
+		zip: payload.order.shipping_address.zip,
+		firstName: payload.order.shipping_address.first_name,
+		lastName: payload.order.shipping_address.last_name,
+		country: payload.order.shipping_address.country,
+		address2: payload.order.shipping_address.address2,
+		city: payload.order.shipping_address.city,
+		phone: payload.order.shipping_address.phone,
+		address1: payload.order.shipping_address.address1,
+		state: payload.order.shipping_address.province
+	},
+	billingAddress: {
+		zip: payload.order.billing_address.zip,
+		firstName: payload.order.billing_address.first_name,
+		lastName: payload.order.billing_address.last_name,
+		country: payload.order.billing_address.country_code,
+		address2: payload.order.billing_address.address2,
+		city: payload.order.billing_address.city,
+		phone: payload.order.billing_address.phone,
+		address1: payload.order.billing_address.address1,
+		state: payload.order.billing_address.province_code
+	},
+	email: payload.order.email,
+	customer: {
+		firstName: payload.order.customer.first_name,
+		lastName: payload.order.customer.last_name,
+		phone: payload.order.customer.phone,
+		email: payload.order.customer.email
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="TRACE" doc:name="Trace - Flow Ending" doc:id="87eafc62-bd46-48c0-a7e5-1aa52621b90c" message="Flow ending" />
+		<error-handler >
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="8d1ea588-712f-4030-af2a-0bd0795ac801" >
+				<logger level="ERROR" doc:name="Error - Log Error Payload" doc:id="43cac47e-ad13-4ea3-80ef-1013d5dcd719" message="#[output application/json --- error.errorMessage.payload]" />
+			</on-error-propagate>
+		</error-handler>
+	</flow>
 	<flow name="create-shopify-order-flow" doc:id="8cf38ea6-c1cb-400e-ae04-c6b2656bbe5a" >
 		<logger level="TRACE" doc:name="Trace - Flow Starting" doc:id="4d65d1a4-3687-4cab-b409-a28834043d78" message="Flow starting"/>
 		<logger level="TRACE" doc:name="Trace - Creating Shopify Request" doc:id="264576ad-2e9f-4fce-bd76-dbc81f1ce577" message="Creating Shopify request body to create an order."/>
