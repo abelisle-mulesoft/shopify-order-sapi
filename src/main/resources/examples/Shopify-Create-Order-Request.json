@@ -1,0 +1,48 @@
+{
+  "order": {
+    "billing_address": {
+      "address1": "PO Box 212",
+      "address2": "",
+      "city": "Drayton Valley",
+      "country": "Canada",
+      "first_name": "Paul",
+      "last_name": "Norman",
+      "phone": "",
+      "province": "Alberta",
+      "zip": "T0E 0M0"
+    },
+    "customer": {
+      "email": "paul.norman@mail.com",
+      "first_name": "Paul",
+      "last_name": "Norman",
+      "phone": "+16135551111"
+    },
+    "email": "paul.norman@example.com",
+    "line_items": [
+      {
+        "price": "549",
+        "quantity": 1,
+        "sku": "",
+        "title": "12-1/2 Thickness Planer With Three Knife Cutter-Head"
+      },
+      {
+        "price": "149.99",
+        "quantity": 1,
+        "sku": "",
+        "title": "20V MAX Lithium Ion 22 Hedge Trimmer"
+      }
+    ],
+    "phone": "+16135551111",
+    "shipping_address": {
+      "address1": "2259 Park Ct",
+      "address2": "APT 5",
+      "city": "Drayton Valley",
+      "country": "Canada",
+      "first_name": "Paul",
+      "last_name": "Norman",
+      "phone": "",
+      "province": "Alberta",
+      "zip": "T0E 0M0"
+    }
+  }
+}

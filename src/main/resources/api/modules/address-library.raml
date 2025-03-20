@@ -4,34 +4,72 @@ usage:
 
 types:
   Address:
+    displayName: Address
+    description: 
+      Encapsulates all the properties used in addresses per the standardized format (e.g., bill to 
+      address, ship to address).
     type: object
     properties:
       firstName:
+        displayName: First Name
+        description: First name of the contact associated with this address.
         type: string
+        example: "Jodee"
       lastName:
+        displayName: Last Name
+        description: Last name of the contact associated with this address.
         type: string
+        example: "Evershed"
       company:
+        displayName: Company Name
+        description: Name of the company associated with this address.
         type: string
+        example: "Fivechat Corporation"
         required: false
       address1:
+        displayName: Address Line 1
+        description: Street adddress line 1.
         type: string
+        example: "56 Orin Way"
       address2:
+        displayName: Address Line 2
+        description: Street adddress line 2.
         type: string
+        example: "Suite 201"
         required: false
       city:
+        displayName: City
+        description: City.
         type: string
+        example: "Albuquerque"
       state:
+        displayName: State
+        description: State Code as per ISO 3166.
         type: string
+        example: "NM"
       country:
+        displayName: Country
+        description: Country code as per ISO 3166.
         type: string
+        example: "US"
       zip:
+        displayName: Zip Code
+        description: Zip or postal code.
         type: string
+        example: "87180"
       phone:
+        displayName: Phone Number
+        description: Phone number associated with this address.
         type: string
+        example: "+1 505 540 3037"
         required: false
 
   BillingAddress:
+    displayName: Billing Address
+    description: Encapsulates all the properties used in a billing address.
     type: Address
 
   ShippingAddress:
+    displayName: Shipping Address
+    description: Encapsulates all the properties used in a shipping address.
     type: Address

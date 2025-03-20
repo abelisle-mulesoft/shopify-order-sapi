@@ -8,15 +8,13 @@ uses:
   ProductTypes: ./product-library.raml
 
 types:
-  LineItem:
-    type: ProductTypes.Product
-    properties:
-      quantity:
-        type: integer
+  ShopifyOrders:
+    type: array
+    items: ShopifyOrder
 
   ShopifyOrder:
     type: object
-    examples: !include ./shopify-order-sapi-example.raml
+    example: !include shopify-order-sapi-example.json
     properties:
       customer:
         type: ContactTypes.Contact
@@ -30,4 +28,10 @@ types:
         type: array
         items: LineItem
         minItems: 1
+
+  LineItem:
+    type: ProductTypes.Product
+    properties:
+      quantity:
+        type: integer
 

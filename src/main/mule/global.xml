@@ -3,13 +3,13 @@
 http://www.mulesoft.org/schema/mule/shopify http://www.mulesoft.org/schema/mule/shopify/current/mule-shopify.xsd
 http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd
 http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
-  <http:listener-config name="shopify-order-sapi-httpListenerConfig" doc:name="shopify-order-sapi-httpListenerConfig">
-    <http:listener-connection host="${http_listener.http.host}" port="${http_listener.http.port}" readTimeout="${http_listener.read_timeout}">
-		</http:listener-connection>
-  </http:listener-config>
-  <configuration-properties doc:name="Configuration properties" doc:id="c9ed8e93-bac2-485d-89ac-315fc0561c61" file="configuration.yaml" />
-  <configuration defaultResponseTimeout="${api.response_timeout}" />
-	<http:request-config name="Shopify_Request_configuration" doc:name="HTTP Request configuration" doc:id="d955633c-01fd-4e72-a3fc-f3da75f018da" enableCookies="false" responseTimeout="${shopify.response_timeout}" sendCorrelationId="NEVER">
+	<global-property doc:name="Global Property" doc:id="56e1f037-8e04-464f-a4ec-5233617ded9b" name="env" value="local" />
+	<configuration-properties doc:name="Configuration properties" doc:id="0313bd69-64bc-4dcc-87d4-69c69ed1b863" file="properties/mule-props-${env}.yaml" />
+<!-- 	<api-gateway:autodiscovery apiId="${autodiscovery.api_id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="28833fdf-39af-4150-ab6e-802696179980" flowRef="${autodiscovery.flow_name}" />  -->
+	<http:listener-config name="shopify-order-sapi-httpListenerConfig" doc:name="shopify-order-sapi-httpListenerConfig">
+		<http:listener-connection host="${http_listener.host}" port="${http.port}"/>
+  	</http:listener-config>
+	<http:request-config name="Shopify_Request_configuration" doc:name="HTTP Request configuration" doc:id="289b9570-caff-46e3-b83d-5288dc122bf3" enableCookies="false" sendCorrelationId="NEVER">
 		<http:request-connection protocol="HTTPS" host="${shopify.https.host}" port="${shopify.https.port}" usePersistentConnections="false"/>
 	</http:request-config>
 </mule>

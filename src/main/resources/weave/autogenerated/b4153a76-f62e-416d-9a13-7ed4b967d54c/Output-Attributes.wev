@@ -1,6 +1,6 @@
 %dw 2.0
 
-type auto_8cf38ea6_c1cb_400e_ae04_c6b2656bbe5a_Output_Attributes = {|
+type auto_b4153a76_f62e_416d_9a13_7ed4b967d54c_Output_Attributes = {|
   statusCode: Number, 
   reasonPhrase: String, 
   headers: { _?: String }

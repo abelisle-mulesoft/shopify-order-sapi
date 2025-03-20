@@ -1,16 +1,35 @@
 #%RAML 1.0
-title: Shopify Order System API (sAPI)
+title: Shopify Order System API
 description: System API for working with orders in Shopify.
-version: v1
 mediaType: application/json
 
 uses:
-  OrderLibrary: ./modules/shopify-order-sapi-library.raml
-  GlobalResources: ./modules/global-resources.raml
+  OrderLibrary: modules/shopify-order-sapi-library.raml
 
-/order:
-  description: Resource representing a Shopify order in standardized format.
+/orders:
+  displayName: Shopify orders
+  description: Resource representing Shopify orders in standardized format.
+  get:
+    displayName: Retrieve a list of orders
+    description: Retrieve a list of orders from Shopify.
+    queryParameters:
+      status?:
+        description: Optionnal parameter for filtering orders by their status.
+        type: string
+        enum:
+          - any
+          - cancelled
+          - closed
+          - open
+        default: open
+        example: open
+    responses:
+      200:
+        body:
+          application/json:
+            type: OrderLibrary.ShopifyOrders
   post:
+    displayName: Create a Shopify order
     description: Creates a new order in Shopify.
     body:
       application/json:
@@ -19,4 +38,5 @@ uses:
       201:
         body: 
           application/json:
-            type: GlobalResources.BasicResponse
+            type: !include modules/api-comprehensive-response.raml
+

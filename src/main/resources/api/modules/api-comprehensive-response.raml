@@ -1,0 +1,53 @@
+#%RAML 1.0 DataType
+displayName: API Comprehensive Response
+description: Comprehensive response returned by APIs.
+type: object
+example: !include api-comprehensive-response-example.json
+properties:
+  dateTime:
+    description: Date and time of the response.
+    type: string
+    example: 2023-01-01T08:00:00.000-08:00
+  httpStatus:
+    type: string
+    description: HTTP status code of the response.
+    example: "400"
+  summaryMessage:
+    type: string
+    description: Summary of the response.
+    example: Validation failed (see responseDetails for more information)
+  errorType?:
+    type: string
+    description: Optional property that specifies the type of error that occurred.
+    example:  VALIDATION_FAILED
+  responseStatus?:
+    description: Optional property that indicates the overall status of the response.
+    type: string
+    enum:
+      - SUCCESS
+      - WARNING
+      - ERROR
+    example: ERROR
+  responseDetails?:
+    items:
+      properties:
+        severity?:
+          description: Optional property that specifies the severity of this responseDetails.message.
+          type: string
+          enum:
+            - INFO
+            - WARNING
+            - ERROR
+          example: ERROR
+        code?:
+          type: string
+          description:
+            Optional alphanumeric code that uniquely identifies this message. This property supports
+            cataloging messages and providing additional information such as comprehensive
+            descriptions issue mitigations workarounds etc.
+          example: VAL1004
+        message?:
+          type: string
+          description:
+            Optional property that provides a (short) description of this responseDetails.message.
+          example: Customer number not found in target system.

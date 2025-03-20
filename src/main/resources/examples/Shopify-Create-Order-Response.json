@@ -1,0 +1,358 @@
+{
+    "order": {
+        "id": 6281966420187,
+        "admin_graphql_api_id": "gid://shopify/Order/6281966420187",
+        "app_id": 74893328385,
+        "browser_ip": null,
+        "buyer_accepts_marketing": false,
+        "cancel_reason": null,
+        "cancelled_at": null,
+        "cart_token": null,
+        "checkout_id": null,
+        "checkout_token": null,
+        "client_details": null,
+        "closed_at": null,
+        "company": null,
+        "confirmation_number": "LNLHF8XIE",
+        "confirmed": true,
+        "contact_email": "paul.norman@example.com",
+        "created_at": "2025-03-20T10:18:39-07:00",
+        "currency": "USD",
+        "current_subtotal_price": "698.99",
+        "current_subtotal_price_set": {
+            "shop_money": {
+                "amount": "698.99",
+                "currency_code": "USD"
+            },
+            "presentment_money": {
+                "amount": "698.99",
+                "currency_code": "USD"
+            }
+        },
+        "current_total_additional_fees_set": null,
+        "current_total_discounts": "0.00",
+        "current_total_discounts_set": {
+            "shop_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+            },
+            "presentment_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+            }
+        },
+        "current_total_duties_set": null,
+        "current_total_price": "698.99",
+        "current_total_price_set": {
+            "shop_money": {
+                "amount": "698.99",
+                "currency_code": "USD"
+            },
+            "presentment_money": {
+                "amount": "698.99",
+                "currency_code": "USD"
+            }
+        },
+        "current_total_tax": "0.00",
+        "current_total_tax_set": {
+            "shop_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+            },
+            "presentment_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+            }
+        },
+        "customer_locale": null,
+        "device_id": null,
+        "discount_codes": [],
+        "email": "paul.norman@example.com",
+        "estimated_taxes": false,
+        "financial_status": "paid",
+        "fulfillment_status": null,
+        "landing_site": null,
+        "landing_site_ref": null,
+        "location_id": null,
+        "merchant_of_record_app_id": null,
+        "name": "#1073",
+        "note": null,
+        "note_attributes": [],
+        "number": 73,
+        "order_number": 1073,
+        "order_status_url": "https://max-mule-store.myshopify.com/64314802395/orders/b00fc37c355f5d70b189a24dcec0ec63/authenticate?key=a1dddfdc91a588427f1bef1e1c86a307",
+        "original_total_additional_fees_set": null,
+        "original_total_duties_set": null,
+        "payment_gateway_names": [],
+        "phone": "+16135551111",
+        "po_number": null,
+        "presentment_currency": "USD",
+        "processed_at": "2025-03-20T10:18:39-07:00",
+        "reference": null,
+        "referring_site": null,
+        "source_identifier": null,
+        "source_name": "74893328385",
+        "source_url": null,
+        "subtotal_price": "698.99",
+        "subtotal_price_set": {
+            "shop_money": {
+                "amount": "698.99",
+                "currency_code": "USD"
+            },
+            "presentment_money": {
+                "amount": "698.99",
+                "currency_code": "USD"
+            }
+        },
+        "tags": "",
+        "tax_exempt": false,
+        "tax_lines": [],
+        "taxes_included": false,
+        "test": false,
+        "token": "b00fc37c355f5d70b189a24dcec0ec63",
+        "total_discounts": "0.00",
+        "total_discounts_set": {
+            "shop_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+            },
+            "presentment_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+            }
+        },
+        "total_line_items_price": "698.99",
+        "total_line_items_price_set": {
+            "shop_money": {
+                "amount": "698.99",
+                "currency_code": "USD"
+            },
+            "presentment_money": {
+                "amount": "698.99",
+                "currency_code": "USD"
+            }
+        },
+        "total_outstanding": "698.99",
+        "total_price": "698.99",
+        "total_price_set": {
+            "shop_money": {
+                "amount": "698.99",
+                "currency_code": "USD"
+            },
+            "presentment_money": {
+                "amount": "698.99",
+                "currency_code": "USD"
+            }
+        },
+        "total_shipping_price_set": {
+            "shop_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+            },
+            "presentment_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+            }
+        },
+        "total_tax": "0.00",
+        "total_tax_set": {
+            "shop_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+            },
+            "presentment_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+            }
+        },
+        "total_tip_received": "0.00",
+        "total_weight": 0,
+        "updated_at": "2025-03-20T10:18:39-07:00",
+        "user_id": null,
+        "billing_address": {
+            "first_name": "Paul",
+            "address1": "PO Box 212",
+            "phone": "",
+            "city": "Drayton Valley",
+            "zip": "T0E 0M0",
+            "province": "Alberta",
+            "country": "Canada",
+            "last_name": "Norman",
+            "address2": "",
+            "company": null,
+            "latitude": 53.2214945,
+            "longitude": -114.976746,
+            "name": "Paul Norman",
+            "country_code": "CA",
+            "province_code": "AB"
+        },
+        "customer": {
+            "id": 6848867991771,
+            "email": "paul.norman@mail.com",
+            "created_at": "2023-06-12T16:33:13-07:00",
+            "updated_at": "2025-03-20T10:18:39-07:00",
+            "first_name": "Paul",
+            "last_name": "Norman",
+            "state": "disabled",
+            "note": null,
+            "verified_email": true,
+            "multipass_identifier": null,
+            "tax_exempt": false,
+            "phone": "+16135551111",
+            "email_marketing_consent": {
+                "state": "not_subscribed",
+                "opt_in_level": "single_opt_in",
+                "consent_updated_at": null
+            },
+            "sms_marketing_consent": {
+                "state": "not_subscribed",
+                "opt_in_level": "single_opt_in",
+                "consent_updated_at": null,
+                "consent_collected_from": "OTHER"
+            },
+            "tags": "",
+            "currency": "USD",
+            "tax_exemptions": [],
+            "admin_graphql_api_id": "gid://shopify/Customer/6848867991771",
+            "default_address": {
+                "id": 8417401798875,
+                "customer_id": 6848867991771,
+                "first_name": "Paul",
+                "last_name": "Norman",
+                "company": null,
+                "address1": "2259 Park Ct",
+                "address2": "APT 5",
+                "city": "Drayton Valley",
+                "province": "Alberta",
+                "country": "Canada",
+                "zip": "T0E 0M0",
+                "phone": "",
+                "name": "Paul Norman",
+                "province_code": "AB",
+                "country_code": "CA",
+                "country_name": "Canada",
+                "default": true
+            }
+        },
+        "discount_applications": [],
+        "fulfillments": [],
+        "line_items": [
+            {
+                "id": 15132167667931,
+                "admin_graphql_api_id": "gid://shopify/LineItem/15132167667931",
+                "current_quantity": 1,
+                "fulfillable_quantity": 1,
+                "fulfillment_service": "manual",
+                "fulfillment_status": null,
+                "gift_card": false,
+                "grams": 0,
+                "name": "12-1/2 Thickness Planer With Three Knife Cutter-Head",
+                "price": "549.00",
+                "price_set": {
+                    "shop_money": {
+                        "amount": "549.00",
+                        "currency_code": "USD"
+                    },
+                    "presentment_money": {
+                        "amount": "549.00",
+                        "currency_code": "USD"
+                    }
+                },
+                "product_exists": false,
+                "product_id": null,
+                "properties": [],
+                "quantity": 1,
+                "requires_shipping": true,
+                "sku": "",
+                "taxable": true,
+                "title": "12-1/2 Thickness Planer With Three Knife Cutter-Head",
+                "total_discount": "0.00",
+                "total_discount_set": {
+                    "shop_money": {
+                        "amount": "0.00",
+                        "currency_code": "USD"
+                    },
+                    "presentment_money": {
+                        "amount": "0.00",
+                        "currency_code": "USD"
+                    }
+                },
+                "variant_id": null,
+                "variant_inventory_management": null,
+                "variant_title": null,
+                "vendor": null,
+                "tax_lines": [],
+                "duties": [],
+                "discount_allocations": []
+            },
+            {
+                "id": 15132167700699,
+                "admin_graphql_api_id": "gid://shopify/LineItem/15132167700699",
+                "current_quantity": 1,
+                "fulfillable_quantity": 1,
+                "fulfillment_service": "manual",
+                "fulfillment_status": null,
+                "gift_card": false,
+                "grams": 0,
+                "name": "20V MAX Lithium Ion 22 Hedge Trimmer",
+                "price": "149.99",
+                "price_set": {
+                    "shop_money": {
+                        "amount": "149.99",
+                        "currency_code": "USD"
+                    },
+                    "presentment_money": {
+                        "amount": "149.99",
+                        "currency_code": "USD"
+                    }
+                },
+                "product_exists": false,
+                "product_id": null,
+                "properties": [],
+                "quantity": 1,
+                "requires_shipping": true,
+                "sku": "",
+                "taxable": true,
+                "title": "20V MAX Lithium Ion 22 Hedge Trimmer",
+                "total_discount": "0.00",
+                "total_discount_set": {
+                    "shop_money": {
+                        "amount": "0.00",
+                        "currency_code": "USD"
+                    },
+                    "presentment_money": {
+                        "amount": "0.00",
+                        "currency_code": "USD"
+                    }
+                },
+                "variant_id": null,
+                "variant_inventory_management": null,
+                "variant_title": null,
+                "vendor": null,
+                "tax_lines": [],
+                "duties": [],
+                "discount_allocations": []
+            }
+        ],
+        "payment_terms": null,
+        "refunds": [],
+        "shipping_address": {
+            "first_name": "Paul",
+            "address1": "2259 Park Ct",
+            "phone": "",
+            "city": "Drayton Valley",
+            "zip": "T0E 0M0",
+            "province": "Alberta",
+            "country": "Canada",
+            "last_name": "Norman",
+            "address2": "APT 5",
+            "company": null,
+            "latitude": 53.2214945,
+            "longitude": -114.976746,
+            "name": "Paul Norman",
+            "country_code": "CA",
+            "province_code": "AB"
+        },
+        "shipping_lines": []
+    }
+}
