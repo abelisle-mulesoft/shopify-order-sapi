@@ -1,5 +1,5 @@
 # Shopify Order System API
-The Shopify Order System API (SAPI) is a reusable asset that enables developers to access Shopify order data without any need to learn the underlying systems. In other words, it provides a means of insulating developers from the complexity of integrating with Shopify. This version, release 1, does not intentionally leverage the MuleSoft Shopify Connector but instead calls the Shopify REST Admin API directly.
+The Shopify Order System API (SAPI) is a reusable asset that enables developers to access Shopify order data without any need to learn the underlying systems. In other words, it provides a means of insulating developers from the complexity of integrating with Shopify. This version, release 2, leverages the MuleSoft Shopify Connector, whereas version 1 calls the Shopify REST Admin API directly.
 
 ## Table of Contents
 1. [Technology Stack Overview](#technology-stack-overview)
@@ -14,12 +14,12 @@ In the current revision, I implemented this system API using the following techn
 - MuleSoft Anypoint Studio 7.18
 - Mule Server 4.7.0
 - Java 1.8
-- Shopify REST Admin API version 2025-01
+- MuleSoft Shopify Connector 1.1.9
 
 Although not formally tested, you could easily use earlier versions of these components.
 
 > [!WARNING]
-> The Shopify's REST Admin API reference stated, "*the REST Admin API is a legacy API as of October 1, 2024. All apps and integrations should be built with the [GraphQL Admin API](https://shopify.dev/docs/api/admin-graphql).*" 
+> As of this writing, the latest version of the MuleSoft Shopify Connector is 1.1.9, which was last updated on March 26, 2024, and leverages the Shopify REST Admin API version **2021-10**. Furthermore, the Shopify REST Admin API reference stated, "*the REST Admin API is a legacy API as of October 1, 2024. All apps and integrations should be built with the [GraphQL Admin API](https://shopify.dev/docs/api/admin-graphql).*" 
 
 ## Implementation Overview
 In the current revision, the Shopify Order SAPI implements the following operations:
@@ -47,17 +47,16 @@ I designed and organized the implementation using three Mule flows:
 
 3. Edit the properties file `src/main/resources/properties/mule-props-dev.yaml` and at a minimum, configure the following properties:
 
-   - `shopify.https.host` - the URL of your Shopify Store.
-   - `shopify.https.port` - optionally, the port of your Shopify Store.
-   - `shopify.admin_api.version` - the version of the Shopify REST Admin API.
-   - `shopify.https.access_token` - your Shopify Store access token.
-
+   - `shopify.base_uri` - the store's base URI - e.g., https://demo-store.myshopify.com.
+   - `shopify.username` - the username is the API key (not the API secret key).
+   - `shopify.password` - the password is the Admin API access token.
+   
     Optionally, revise or update other properties as you see fit.
-
+   
 4. Compile and run the project in Anypoint Studio as a smoke test. Optionally, test the Shopify Order SAPI using the API Console in Anypoint Studio, or your preferred API testing tool (e.g., Postman).
 
 ## Sample Request Messages
-I tested the Shopify Order SAPI using the following sample request message.
+I tested the creating an order via the Shopify Order SAPI using the following sample request message.
 ```json
 {
   "customer": {
@@ -104,6 +103,8 @@ You can report new issues at this link https://github.com/abelisle-mulesoft/shop
 
 ## Additional Resources
 Following are references and additional resources:
+- MuleSoft Shopify Connector documentation: https://docs.mulesoft.com/shopify-connector/latest/
+- MuleSoft Shopify Connector Release Notes: https://docs.mulesoft.com/release-notes/connector/shopify-connector-release-notes-mule-4 
 - Shopify Admin API: https://shopify.dev/api/admin
 - Shopify REST Admin API reference: https://shopify.dev/api/admin-rest
 - Shopify REST Order API (version 2022-04): https://shopify.dev/api/admin-rest/2022-04/resources/order

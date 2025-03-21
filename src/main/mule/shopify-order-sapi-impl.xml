@@ -9,62 +9,28 @@ http://www.mulesoft.org/schema/mule/shopify http://www.mulesoft.org/schema/mule/
 	<flow name="get-shopify-orders-flow" doc:id="b4153a76-f62e-416d-9a13-7ed4b967d54c" >
 		<logger level="TRACE" doc:name="Trace - Flow Starting" doc:id="842ccded-8608-4f78-b345-7de861595f87" message="Flow starting"/>
 		<logger level="TRACE" doc:name="Trace - Retrieving Orders List" doc:id="c489ea48-84bc-41fc-ae2e-bdfab4029c48" message="Retrieve list of orders with status = #[attributes.queryParams.status]"/>
-		<http:request method="GET" doc:name="Retrieve Orders List" doc:id="3081f6fe-1db6-4406-b433-c0147c042aaa" config-ref="Shopify_Request_configuration" path="/admin/api/${shopify.admin_api.version}/orders.json" outputMimeType="application/json">
-			<http:body ><![CDATA[#[""]]]></http:body>
-			<http:headers ><![CDATA[#[output application/java
----
-{
-	"X-Shopify-Access-Token" : p("shopify.admin_api.access_token")
-}]]]></http:headers>
-			<http:query-params ><![CDATA[#[output application/java
----
-{
-	"status" : attributes.queryParams.status
-}]]]></http:query-params>
-		</http:request>
+		<shopify:order-list doc:name="Get Orders" doc:id="2e7a7776-0ab5-4218-8d9a-2df615cf6544" config-ref="Shopify_Connector_Config" statusQueryParam="#[attributes.uriParams.status]"/>
 		<logger level="TRACE" doc:name="Trace - Retrieved Successfully" doc:id="9e7426ac-a29b-4e2e-9575-6e8a8af19411" message="Retrieved list of orders from Shopify successfully"/>
 		<ee:transform doc:name="Create API Response" doc:id="90a68939-0c42-48d7-98bc-328ccc8d76d9" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
 ---
-payload.orders map ( order , indexOfOrder ) -> {
-	lineItems: order.line_items map ( lineitem , indexOfLineitem ) -> {
-		quantity: lineitem.quantity,
-		price: lineitem.price as Number,
+payload map ( payload01 , indexOfPayload01 ) -> {
+	lineItems: payload01.line_items map ( lineitem , indexOfLineitem ) -> {
 		id: lineitem.id as String,
-		title: lineitem.name,
-		sku: lineitem.sku
+		sku: lineitem.sku,
+		title: lineitem.title,
+		quantity: lineitem.quantity,
+		price: lineitem.price as Number
 	},
-	phone: order.phone,
-	shippingAddress: {
-		zip: order.shipping_address.zip,
-		firstName: order.shipping_address.first_name,
-		lastName: order.shipping_address.last_name,
-		country: order.shipping_address.country,
-		address2: order.shipping_address.address2,
-		city: order.shipping_address.city,
-		phone: order.shipping_address.phone,
-		address1: order.shipping_address.address1,
-		state: order.shipping_address.province
-	},
-	billingAddress: {
-		zip: order.billing_address.zip,
-		firstName: order.billing_address.first_name,
-		lastName: order.billing_address.last_name,
-		country: order.billing_address.country_code,
-		address2: order.billing_address.address2,
-		city: order.billing_address.city,
-		phone: order.billing_address.phone,
-		address1: order.billing_address.address1,
-		state: order.billing_address.province_code
-	},
-	email: order.email,
+	phone: payload01.phone as String default "",
+	email: payload01.email,
 	customer: {
-		firstName: order.customer.first_name,
-		lastName: order.customer.last_name,
-		phone: order.customer.phone,
-		email: order.customer.email
+		firstName: payload01.customer.first_name as String default "",
+		lastName: payload01.customer.last_name as String default "",
+		phone: payload01.customer.phone as String default "",
+		email: payload01.customer.email default ""
 	}
 }]]></ee:set-payload>
 			</ee:message>
@@ -79,19 +45,7 @@ payload.orders map ( order , indexOfOrder ) -> {
 	<flow name="get-shopify-order-by-id-flow" doc:id="067efd70-4b51-410e-97b6-728cefe37cc3" >
 		<logger level="TRACE" doc:name="Trace - Flow Starting" doc:id="2398b519-d669-4fa1-9624-610f7f8c70f5" message="Flow starting" />
 		<logger level="TRACE" doc:name="Trace - Retrieving Order By ID" doc:id="a3a4b920-3971-451f-ae2e-fcb2c38b198c" message="Retrieve order with ID = #[attributes.queryParams.status]" />
-		<http:request method="GET" doc:name="Retrieve Specific Order" doc:id="be0df565-cfd1-435a-b29a-4fc3f44c154c" config-ref="Shopify_Request_configuration" path="/admin/api/${shopify.admin_api.version}/orders/{orderId}" outputMimeType="application/json">
-			<http:body><![CDATA[#[""]]]></http:body>
-			<http:headers><![CDATA[#[output application/java
----
-{
-	"X-Shopify-Access-Token" : p("shopify.admin_api.access_token")
-}]]]></http:headers>
-			<http:uri-params ><![CDATA[#[output application/java
----
-{
-	"orderId" : attributes.uriParams.orderId ++ ".json"
-}]]]></http:uri-params>
-		</http:request>
+		<shopify:order-get orderIdUriParam="#[attributes.uriParams.orderId]" doc:name="Order Get" doc:id="e26c936d-e9cd-40e9-bb53-dbf1d2bac647" config-ref="Shopify_Connector_Config"/>
 		<logger level="TRACE" doc:name="Trace - Retrieved Successfully" doc:id="3cc9fe2a-974f-418d-885c-6eb77ea563a3" message="Retrieved order from Shopify successfully" />
 		<ee:transform doc:name="Create API Response" doc:id="2d568cfe-08a3-4ea2-bc47-73b9fced685e">
 			<ee:message>
@@ -149,7 +103,7 @@ output application/json
 	<flow name="create-shopify-order-flow" doc:id="8cf38ea6-c1cb-400e-ae04-c6b2656bbe5a" >
 		<logger level="TRACE" doc:name="Trace - Flow Starting" doc:id="4d65d1a4-3687-4cab-b409-a28834043d78" message="Flow starting"/>
 		<logger level="TRACE" doc:name="Trace - Creating Shopify Request" doc:id="264576ad-2e9f-4fce-bd76-dbc81f1ce577" message="Creating Shopify request body to create an order."/>
-		<ee:transform doc:name="To Shopify Order" doc:id="8caf8ea8-b56b-4eb4-b853-dd246f2d797b">
+		<ee:transform doc:name="To Shopify Order" doc:id="18cae6a8-c7a9-4f05-b4d6-25215f241c95">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
@@ -157,53 +111,48 @@ output application/json
 {
 	order: {
 		billing_address: {
-			address1: payload.billingAddress.address1,
-			address2: payload.billingAddress.address2 default "",
+			zip: payload.billingAddress.zip,
+			country: payload.billingAddress.country,
 			city: payload.billingAddress.city,
-			country: payload.billingAddress.country default "",
-			first_name: payload.billingAddress.firstName,
+			address2: payload.billingAddress.address2,
+			address1: payload.billingAddress.address1,
 			last_name: payload.billingAddress.lastName,
-			phone: payload.billingAddress.phone default "",
 			province: payload.billingAddress.state,
-			zip: payload.billingAddress.zip
+			phone: payload.billingAddress.phone,
+			company: payload.billingAddress.company,
+			first_name: payload.billingAddress.firstName
 		},
-		customer: {
-			email: payload.customer.email,
-			first_name: payload.customer.firstName,
-			last_name: payload.customer.lastName,
-			phone: payload.customer.phone
-		},
-		email: payload.email,
 		line_items: payload.lineItems map ( lineItem , indexOfLineItem ) -> {
-			price: lineItem.price as String,
 			quantity: lineItem.quantity,
-			sku: lineItem.sku default "",
-			title: lineItem.title
+			price: lineItem.price as String,
+			title: lineItem.title,
+			sku: lineItem.sku
 		},
 		phone: payload.phone,
 		shipping_address: {
-			address1: payload.shippingAddress.address1,
-			address2: payload.shippingAddress.address2 default "",
-			city: payload.shippingAddress.city,
+			zip: payload.shippingAddress.zip,
 			country: payload.shippingAddress.country,
-			first_name: payload.shippingAddress.firstName,
+			city: payload.shippingAddress.city,
+			address2: payload.shippingAddress.address2,
+			address1: payload.shippingAddress.address1,
 			last_name: payload.shippingAddress.lastName,
-			phone: payload.shippingAddress.phone default "",
 			province: payload.shippingAddress.state,
-			zip: payload.shippingAddress.zip
+			phone: payload.shippingAddress.phone,
+			company: payload.shippingAddress.company,
+			first_name: payload.shippingAddress.firstName
+		},
+		email: payload.email,
+		customer: {
+			last_name: payload.customer.lastName,
+			first_name: payload.customer.firstName,
+			email: payload.customer.email
 		}
 	}
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<logger level="TRACE" doc:name="Trace - Creating Shopify Order" doc:id="7de1dfba-3bca-43a2-8281-3b6efeda3cce" message="Creating the order in Shopify"/>
-		<http:request method="POST" doc:name="Create Shopify Order" doc:id="46bd50a4-186a-4123-906f-47a3a2faae4e" config-ref="Shopify_Request_configuration" path="/admin/api/${shopify.admin_api.version}/orders.json" outputMimeType="application/json">
-			<http:headers><![CDATA[#[output application/java
----
-{
-	"X-Shopify-Access-Token" : p("shopify.admin_api.access_token")
-}]]]></http:headers>
-		</http:request>
+		<shopify:order-create doc:name="Create Shopify Order" doc:id="1c1da20b-8816-43fc-b656-cc7ddc41052d" config-ref="Shopify_Connector_Config" />
 		<logger level="TRACE" doc:name="Trace - Created Order Successfully" doc:id="7bd18a4f-325a-4bb6-8546-99faca3e1e19" message="Order created successfully in Shopify." />
 		<ee:transform doc:name="Create API Response" doc:id="99ab87bf-170f-43ac-9729-f1ead8613ea1">
 			<ee:message>

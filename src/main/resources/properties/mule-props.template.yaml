@@ -21,11 +21,8 @@ https:
   port: "8082"
 
 #---------------------------------------------------------------------------------------------------
-# Shopify REST Admin API 
+# Shopify Connector 
 shopify:
-  https:
-    host: ""
-    port: ""    # Use default port
-  admin_api:
-    version: "2025-01"
-    access_token: ""
+  base_uri: ""    # The store's base URI - e.g., https://demo-store.myshopify.com
+  username: ""    # The username is the API key
+  password: ""    # The password is the Admin API access token

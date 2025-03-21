@@ -12,4 +12,7 @@ http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/
 	<http:request-config name="Shopify_Request_configuration" doc:name="HTTP Request configuration" doc:id="289b9570-caff-46e3-b83d-5288dc122bf3" enableCookies="false" sendCorrelationId="NEVER">
 		<http:request-connection protocol="HTTPS" host="${shopify.https.host}" port="${shopify.https.port}" usePersistentConnections="false"/>
 	</http:request-config>
+	<shopify:config name="Shopify_Connector_Config" doc:name="Shopify Connector Config" doc:id="865bf3dc-08cb-4017-912c-148e1d42d15a" >
+		<shopify:basic-auth-connection username="${shopify.username}" password="${shopify.password}" baseUri="${shopify.base_uri}" protocol="HTTPS" />
+	</shopify:config>
 </mule>
