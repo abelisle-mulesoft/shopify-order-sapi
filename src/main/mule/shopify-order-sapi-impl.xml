@@ -79,7 +79,6 @@ payload.orders map ( order , indexOfOrder ) -> {
 	<flow name="get-shopify-order-by-id-flow" doc:id="067efd70-4b51-410e-97b6-728cefe37cc3" >
 		<logger level="TRACE" doc:name="Trace - Flow Starting" doc:id="2398b519-d669-4fa1-9624-610f7f8c70f5" message="Flow starting" />
 		<logger level="TRACE" doc:name="Trace - Retrieving Order By ID" doc:id="a3a4b920-3971-451f-ae2e-fcb2c38b198c" message="Retrieve order with ID = #[attributes.queryParams.status]" />
-		<logger level="INFO" doc:name="Logger" doc:id="548181ad-f610-43e6-9b32-0fbafea0f69b" message="Order ID: #[attributes.uriParams.orderId]"/>
 		<http:request method="GET" doc:name="Retrieve Specific Order" doc:id="be0df565-cfd1-435a-b29a-4fc3f44c154c" config-ref="Shopify_Request_configuration" path="/admin/api/${shopify.admin_api.version}/orders/{orderId}" outputMimeType="application/json">
 			<http:body><![CDATA[#[""]]]></http:body>
 			<http:headers><![CDATA[#[output application/java

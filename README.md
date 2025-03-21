@@ -1,5 +1,5 @@
 # Shopify Order System API
-This repository contains a system API for unlocking Shopify order data. The Shopify Order System API (SAPI) is a reusable asset that enables developers to access Shopify order data without any need to learn the underlying systems. In other words, it provides a means of insulating developers from the complexity of integrating with Shopify.
+The Shopify Order System API (SAPI) is a reusable asset that enables developers to access Shopify order data without any need to learn the underlying systems. In other words, it provides a means of insulating developers from the complexity of integrating with Shopify. This version, release 1, does not intentionally leverage the MuleSoft Shopify Connector but instead calls the Shopify REST Admin API directly.
 
 ## Table of Contents
 1. [Technology Stack Overview](#technology-stack-overview)
@@ -13,6 +13,7 @@ This repository contains a system API for unlocking Shopify order data. The Shop
 In the current revision, I implemented this system API using the following technology stack:
 - MuleSoft Anypoint Studio 7.18
 - Mule Server 4.7.0
+- Java 1.8
 - Shopify REST Admin API version 2025-01
 
 Although not formally tested, you could easily use earlier versions of these components.

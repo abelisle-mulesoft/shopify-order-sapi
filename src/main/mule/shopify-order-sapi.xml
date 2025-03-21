@@ -177,7 +177,6 @@ output application/json
         <flow-ref doc:name="get-shopify-orders-flow" doc:id="cc308510-ab3e-4c05-825f-eef5e2b1ef6c" name="get-shopify-orders-flow" />
     </flow>
     <flow name="get:\orders\(orderId):shopify-order-sapi-config">
-        <logger level="INFO" doc:name="Logger" doc:id="5be2e498-9a1d-4649-b8de-adf72570c1bd" message="#[attributes.uriParams.orderId]"/>
 		<flow-ref doc:name="get-shopify-order-by-id-flow" doc:id="89aeab3f-1451-454d-8ecc-ea3b7aaed52e" name="get-shopify-order-by-id-flow"/>
     </flow>
 	<flow name="post:\orders:application\json:shopify-order-sapi-config">
